@@ -23,9 +23,7 @@ public class IssueController {
     @PostMapping("/issues")
     @ResponseBody
     public ResponseEntity<Issue> createIssue(@RequestBody Issue issue) {
-        System.out.println(issueServiceImpl);
-        Issue issue1 = issueServiceImpl.create(issue);
-        return ResponseEntity.ok(issue1);
+        return ResponseEntity.ok(issueServiceImpl.create(issue));
     }
 
     @PreAuthorize("#oauth2.hasScope('read')")

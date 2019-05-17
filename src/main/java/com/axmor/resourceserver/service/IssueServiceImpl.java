@@ -3,7 +3,6 @@ package com.axmor.resourceserver.service;
 import com.axmor.resourceserver.model.Issue;
 import com.axmor.resourceserver.model.IssueComment;
 import com.axmor.resourceserver.repository.IssueRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
