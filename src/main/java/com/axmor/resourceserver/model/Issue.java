@@ -19,7 +19,7 @@ public class Issue {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String name;
     @Column(nullable = false)
     private Status status;
@@ -30,8 +30,4 @@ public class Issue {
     @JoinColumn
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, targetEntity = IssueComment.class)
     private Set<IssueComment> comments;
-
-    public enum Status {
-        ADDED, READY, ONGOING
-    }
 }

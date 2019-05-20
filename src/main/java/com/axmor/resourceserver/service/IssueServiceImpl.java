@@ -2,6 +2,7 @@ package com.axmor.resourceserver.service;
 
 import com.axmor.resourceserver.model.Issue;
 import com.axmor.resourceserver.model.IssueComment;
+import com.axmor.resourceserver.model.Status;
 import com.axmor.resourceserver.repository.IssueRepository;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +12,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
-public class IssueServiceImpl implements IssueService{
+public class IssueServiceImpl implements IssueService {
 
     private final IssueRepository issueRepository;
 
@@ -24,7 +25,7 @@ public class IssueServiceImpl implements IssueService{
     }
 
     public Issue create(Issue issue) {
-        issue.setStatus(Issue.Status.ADDED);
+        issue.setStatus(Status.ADDED);
         issue.setTimestamp(Timestamp.valueOf(LocalDateTime.now()));
         return issueRepository.save(issue);
     }
@@ -51,13 +52,16 @@ public class IssueServiceImpl implements IssueService{
         throw new SQLException();
     }
 
-    public void addComment(int id, IssueComment issueComment) {
+    public IssueComment addComment(int id, IssueComment issueComment) throws SQLException {
         Optional<Issue> optionalIssue = issueRepository.findById(id);
         if (optionalIssue.isPresent()) {
             Issue issue = optionalIssue.get();
             issueComment.setTimestamp(Timestamp.valueOf(LocalDateTime.now()));
             issue.getComments().add(issueComment);
+            issue.setStatus(issueComment.getStatus());
             issueRepository.save(issue);
+            return issueComment;
         }
+        throw new SQLException();
     }
 }

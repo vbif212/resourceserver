@@ -23,7 +23,11 @@ public class IssueController {
     @PostMapping("/issues")
     @ResponseBody
     public ResponseEntity<Issue> createIssue(@RequestBody Issue issue) {
-        return ResponseEntity.ok(issueServiceImpl.create(issue));
+        try {
+            return ResponseEntity.ok(issueServiceImpl.create(issue));
+        } catch (Exception exception) {
+            return ResponseEntity.status(409).build();
+        }
     }
 
     @PreAuthorize("#oauth2.hasScope('read')")
@@ -53,21 +57,13 @@ public class IssueController {
     }
 
     @PreAuthorize("#oauth2.hasScope('read')")
-    @PutMapping("/issues/{id}")
-    @ResponseBody
-    public ResponseEntity<Issue> updateIssue(@PathVariable int id, @RequestBody Issue issue) {
-        try {
-            return ResponseEntity.ok(issueServiceImpl.update(id, issue));
-        } catch (SQLException e) {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-    @PreAuthorize("#oauth2.hasScope('read')")
     @PostMapping("/issues/{id}/comments")
     @ResponseBody
     public ResponseEntity addComment(@PathVariable int id, @RequestBody IssueComment issueComment) {
-        issueServiceImpl.addComment(id, issueComment);
-        return ResponseEntity.ok().build();
+        try {
+            return ResponseEntity.ok(issueServiceImpl.addComment(id, issueComment));
+        } catch (SQLException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

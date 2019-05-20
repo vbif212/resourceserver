@@ -26,6 +26,9 @@ public class IssueComment {
     @Column(nullable = false)
     private String message;
 
+    @Column(nullable = false)
+    private Status status;
+
     @JoinColumn
     @ManyToOne(targetEntity = Issue.class)
     private Issue issue;
