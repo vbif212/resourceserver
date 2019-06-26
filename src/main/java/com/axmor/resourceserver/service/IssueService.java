@@ -6,7 +6,7 @@ import com.axmor.resourceserver.model.IssueComment;
 import java.sql.SQLException;
 
 public interface IssueService {
-    Iterable<Issue> issues();
+    Iterable<Object> issues();
     Issue create(Issue issue);
     void delete(int id);
     Issue read(int id) throws SQLException;

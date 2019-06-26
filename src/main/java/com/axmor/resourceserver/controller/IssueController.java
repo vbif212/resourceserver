@@ -33,7 +33,7 @@ public class IssueController {
     @PreAuthorize("#oauth2.hasScope('read')")
     @GetMapping("/issues")
     @ResponseBody
-    public ResponseEntity<Iterable<Issue>> getIssues() {
+    public ResponseEntity<Iterable<Object>> getIssues() {
         return ResponseEntity.ok(issueServiceImpl.issues());
     }
 

@@ -20,8 +20,8 @@ public class IssueServiceImpl implements IssueService {
         this.issueRepository = issueRepository;
     }
 
-    public Iterable<Issue> issues() {
-        return issueRepository.findAll();
+    public Iterable<Object> issues() {
+        return issueRepository.getIssues();
     }
 
     public Issue create(Issue issue) {
